@@ -1,11 +1,17 @@
 using Google.Cloud.PubSub.V1;
+using Microsoft.Extensions.Options;
 
 namespace Publisher.ConsoleApp;
 
 public class PubSubMessagesPublisher : IMessagesPublisher
 {
-    private readonly string _projectId = "TODO";
-    private readonly string _topicId = "TODO";
+    private readonly string _projectId;
+    private const string _topicId = "text-message";
+
+    public PubSubMessagesPublisher(IOptions<PublisherOptions> publisherOptions)
+    {
+        _projectId = publisherOptions.Value.ProjectId;
+    }
     
     public async Task<int> PublishMessagesAsync(Action<string> logAction, params string[] messageTexts)
     {
@@ -23,7 +29,7 @@ public class PubSubMessagesPublisher : IMessagesPublisher
             }
             catch (Exception exception)
             {
-                logAction($"An error ocurred when publishing message {text}: {exception.Message}");
+                logAction($"An error occurred when publishing message {text}: {exception.Message}");
             }
         });
         await Task.WhenAll(publishTasks);

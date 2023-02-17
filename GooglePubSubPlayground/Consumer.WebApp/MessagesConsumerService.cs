@@ -1,18 +1,21 @@
 using Google.Cloud.PubSub.V1;
+using Microsoft.Extensions.Options;
+
 namespace Consumer.WebApp;
 
 public class MessagesConsumerService : IHostedService
 {
-    private readonly string _projectId = "TODO";
-    private readonly string _subscriptionId = "TODO";
-    
+    private readonly string _projectId;
+    private const string _subscriptionId = "text-message-sub";
+
     private readonly IServiceProvider _serviceProvider;
     private SubscriberClient _subscriber;
     private Task _startTask;
 
-    public MessagesConsumerService(IServiceProvider serviceProvider)
+    public MessagesConsumerService(IServiceProvider serviceProvider, IOptions<ConsumerOptions> consumerOptions)
     {
         _serviceProvider = serviceProvider;
+        _projectId = consumerOptions.Value.ProjectId;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
