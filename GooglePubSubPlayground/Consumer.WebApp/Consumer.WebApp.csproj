@@ -6,4 +6,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Google.Cloud.PubSub.V1" Version="3.3.0" />
+    </ItemGroup>
+
 </Project>
