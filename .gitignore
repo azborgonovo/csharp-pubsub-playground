@@ -383,3 +383,11 @@ Desktop.ini
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Ignore only specific Rider files/directories
+/.idea/*
+!/.idea/.idea.*
+/.idea/.idea.*/*
+!/.idea/.idea.*/.idea
+/.idea/.idea.*/.idea/*
+!/.idea/.idea.*/.idea/runConfigurations
